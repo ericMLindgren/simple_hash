@@ -36,6 +36,10 @@ const Hashmap = function (length) {
 
 	const array = new Array(length);
 
+	const C1 = 5, C2 = 3;
+	function morph(baseIndex, i, length){
+		return (baseIndex + (C1 * i) + (C2 * i * i)) % length;
+	}
 
 	
 
@@ -131,14 +135,6 @@ const Hashmap = function (length) {
 		}
 	}
 }
-
-const C1 = 5, C2 = 3;
-function morph(baseIndex, i, length){
-	return (baseIndex + (C1 * i) + (C2 * i * i)) % length;
-}
-
-
-
 
 const map = new Hashmap(5);
 
