@@ -31,8 +31,9 @@ const hash = require('string-hash');
 
 quad (hash + C1*i + C2*i*i)
 */
+module.exports = Hashmap;
 
-const Hashmap = function (length) {
+function Hashmap (length) {
 
 	const array = new Array(length);
 
@@ -140,28 +141,28 @@ const Hashmap = function (length) {
 
 
 
+console.log("Priority Hash Loaded...")
+// const map = new Hashmap(5);
 
-const map = new Hashmap(5);
+// map.insert('dog','money');
+// map.insert('thai','curry');
+// map.insert('boo','hooo');
 
-map.insert('dog','money');
-map.insert('thai','curry');
-map.insert('boo','hooo');
+// // map.print()
+// map.search('dog')
+// map.search('dog')
+// map.delete('dog')
+// map.delete('boo')
+
+// map.insert('dog','hooo');
+// map.insert('boo','hooo');
+// map.search('boo')
+// map.search('boo')
+// map.search('boo')
 
 // map.print()
-map.search('dog')
-map.search('dog')
-map.delete('dog')
-map.delete('boo')
 
-map.insert('dog','hooo');
-map.insert('boo','hooo');
-map.search('boo')
-map.search('boo')
-map.search('boo')
+// //priority_rehash(map.clone()).print()
+// map.rehash().print()
 
-map.print()
-
-//priority_rehash(map.clone()).print()
-map.rehash().print()
-
-map.print();
+// map.print();
