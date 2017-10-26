@@ -73,17 +73,23 @@ function Hashmap (length) {
 		insert: (key, value) => {
 			let baseIndex = hash(key) % length;
 			let bucketIndex
+			let collideCount = 0;
 			let i = 0;
-			console.log('pMap insert, Tombstone count:', tombstones,'of total', length, 'spots')
+
+			console.log('pMap insert');
+			console.log(capacityInUse/length + '%', 'of total',length, 'capicity filled.');
+			console.log(tombstones/capacityInUse + '%', 'of used capacity are tombstones.');
+
 			while (i < array.length) {
 				bucketIndex = morph(baseIndex, i, length)
 				if (!array[bucketIndex] || array[bucketIndex].data == TOMBSTONE) {					
 					array[bucketIndex] = {data: [key,value], accessCount: 0};
-					console.log('Inserting value:', value, ' at key:',key)
+					console.log('Inserting value:', value, ' at key:',key, 'after',collideCount,'collisions.')
 					break;
 				}
 
-				console.log(key, 'collided with ', array[bucketIndex]);
+				// console.log(key, 'collided with ', array[bucketIndex]);
+				collideCount++
 				i++	
 			}
 
