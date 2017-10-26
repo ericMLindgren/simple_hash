@@ -36,8 +36,10 @@ module.exports = Hashmap;
 function Hashmap (length) {
 
 	const array = new Array(length);
-
-	
+	const TOMBSTONE = 'TOMBSTONE';
+	let capacityInUse = 0;
+	let tombstones = 0;
+		
 	const C1 = 5, C2 = 3;
 	
 	function morph(baseIndex, i, length){
@@ -60,7 +62,7 @@ function Hashmap (length) {
 
 
 			for (let i in oldMap){
-				if (oldMap[i] && (oldMap[i].data != 'TOMBSTONE')){
+				if (oldMap[i] && (oldMap[i].data != TOMBSTONE)){
 					newMap.insert(oldMap[i].data[0],oldMap[i].data[1])
 				}
 			}
@@ -72,17 +74,20 @@ function Hashmap (length) {
 			let baseIndex = hash(key) % length;
 			let bucketIndex
 			let i = 0;
-
+			console.log('pMap insert, Tombstone count:', tombstones,'of total', length, 'spots')
 			while (i < array.length) {
 				bucketIndex = morph(baseIndex, i, length)
-				if (!array[bucketIndex] || array[bucketIndex].data == 'TOMBSTONE') {					
+				if (!array[bucketIndex] || array[bucketIndex].data == TOMBSTONE) {					
 					array[bucketIndex] = {data: [key,value], accessCount: 0};
-					break
+					console.log('Inserting value:', value, ' at key:',key)
+					break;
 				}
 
 				console.log(key, 'collided with ', array[bucketIndex]);
 				i++	
 			}
+
+			capacityInUse++;
 		},
 
 		search: (key) => {
@@ -93,7 +98,7 @@ function Hashmap (length) {
 
 			while (i < array.length) {
 				bucketIndex = morph(baseIndex, i, length)
-				if (array[bucketIndex].data==undefined){
+				if (array[bucketIndex] == undefined){
 					return null;
 				}
 
@@ -114,13 +119,15 @@ function Hashmap (length) {
 
 			while (i < array.length) {
 				bucketIndex = morph(baseIndex, i, length)
-				if (array[bucketIndex].data==undefined) {
+				if (array[bucketIndex] == undefined) {
+					console.log('no value for key:', key)
 					return null
 				} else if (array[bucketIndex].data[0]==key) {
-					
+					console.log('found key:', key+',', 'deleting')
 					deleted = array[bucketIndex];
 
-					array[bucketIndex].data = 'TOMBSTONE';
+					array[bucketIndex].data = TOMBSTONE;
+					tombstones++
 					
 					return deleted;
 				}
@@ -132,37 +139,37 @@ function Hashmap (length) {
 
 			console.log('\nHuman Readable Map: \n', array);
 
-		}
+		},
+
+		capacityInUse: capacityInUse,
+		tombstones: tombstones,
 	}
 }
 
-
-
-
-
-
 console.log("Priority Hash Loaded...")
-// const map = new Hashmap(5);
+const map = new Hashmap(5);
 
-// map.insert('dog','money');
-// map.insert('thai','curry');
-// map.insert('boo','hooo');
-
-// // map.print()
-// map.search('dog')
-// map.search('dog')
-// map.delete('dog')
-// map.delete('boo')
-
-// map.insert('dog','hooo');
-// map.insert('boo','hooo');
-// map.search('boo')
-// map.search('boo')
-// map.search('boo')
+map.insert('dog','money');
+map.insert('thai','curry');
+map.insert('boo','hooo');
 
 // map.print()
+map.search('dog')
+map.search('dog')
+map.delete('dog')
+map.delete('boo')
 
-// //priority_rehash(map.clone()).print()
-// map.rehash().print()
+map.insert('dog','hooo');
+map.insert('boo','hooo');
+map.search('boo')
+map.search('boo')
+map.search('boo')
 
-// map.print();
+map.print()
+
+//priority_rehash(map.clone()).print()
+map.rehash().print()
+
+map.print();
+
+map.search('asdfasdf')
