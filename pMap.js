@@ -87,12 +87,9 @@ function Hashmap (length) {
 					console.log('Inserting value:', value, ' at key:',key, 'after',collideCount,'collisions.')
 					break;
 				}
-
-				// console.log(key, 'collided with ', array[bucketIndex]);
 				collideCount++
 				i++	
 			}
-
 			capacityInUse++;
 		},
 
@@ -153,29 +150,29 @@ function Hashmap (length) {
 }
 
 console.log("Priority Hash Loaded...")
-const map = new Hashmap(5);
+// const map = new Hashmap(5);
 
-map.insert('dog','money');
-map.insert('thai','curry');
-map.insert('boo','hooo');
+// map.insert('dog','money');
+// map.insert('thai','curry');
+// map.insert('boo','hooo');
+
+// // map.print()
+// map.search('dog')
+// map.search('dog')
+// map.delete('dog')
+// map.delete('boo')
+
+// map.insert('dog','hooo');
+// map.insert('boo','hooo');
+// map.search('boo')
+// map.search('boo')
+// map.search('boo')
 
 // map.print()
-map.search('dog')
-map.search('dog')
-map.delete('dog')
-map.delete('boo')
 
-map.insert('dog','hooo');
-map.insert('boo','hooo');
-map.search('boo')
-map.search('boo')
-map.search('boo')
+// //priority_rehash(map.clone()).print()
+// map.rehash().print()
 
-map.print()
+// map.print();
 
-//priority_rehash(map.clone()).print()
-map.rehash().print()
-
-map.print();
-
-map.search('asdfasdf')
+// map.search('asdfasdf')
