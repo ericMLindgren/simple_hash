@@ -78,7 +78,7 @@ function Generator(target) {
 
 	this.newConnection = function() {
 		const newConnect = {};
-		newConnect.ip = makeFakeIps();
+		newConnect.ip = makeFakeIps().toString();
 		newConnect.metadata = makeSemiRandomData();
 		target.connect(newConnect);
 
